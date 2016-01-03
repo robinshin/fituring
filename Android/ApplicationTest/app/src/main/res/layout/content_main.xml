@@ -12,8 +12,18 @@
     tools:context="camillepact.applicationtest.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Hello World\\Momo!"
+        android:id="@+id/editText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clique !"
+        android:id="@+id/button1"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="98dp" />
 </RelativeLayout>
