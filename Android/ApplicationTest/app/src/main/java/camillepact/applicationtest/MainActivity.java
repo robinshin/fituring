@@ -1,5 +1,6 @@
 package camillepact.applicationtest;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -100,7 +101,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_register) {
-            
+            Intent appel = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(appel);
         } else if (id == R.id.nav_newSong) {
 
         } else if (id == R.id.nav_watchVideos) {
