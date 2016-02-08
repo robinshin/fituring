@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity
             Intent appel = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(appel);
         } else if (id == R.id.nav_newSong) {
-
+            Intent appel = new Intent(MainActivity.this, NewSongActivity.class);
+            startActivity(appel);
         } else if (id == R.id.nav_watchVideos) {
 
         } else if (id == R.id.nav_manage) {
