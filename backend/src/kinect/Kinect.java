@@ -15,7 +15,7 @@ public class Kinect extends J4KSDK
 	@Override
 	public void onSkeletonFrameEvent(boolean[] skeleton_tracked, float[] positions, float[] orientations, byte[] joint_status) {
 		System.out.println("New skeleton !");
-		currentSkeleton = Skeleton.getSkeleton(1, skeleton_tracked, positions, orientations, joint_status, getDeviceType());
+		currentSkeleton = Skeleton.getSkeleton(0, skeleton_tracked, positions, orientations, joint_status, this);
 	}
 
 	@Override
@@ -24,16 +24,15 @@ public class Kinect extends J4KSDK
 	}
 
 	@Override
-	public void onDepthFrameEvent(short[] depth_frame, byte[] body_index, float[] xyz, float[] uv) {
-		System.out.println("A new depth frame was received.");
-		
+	public void onDepthFrameEvent(short[] arg0, byte[] arg1, float[] arg2, float[] arg3) 
+	{
+		// Calculation of the FPS
 		if(counter==0)
 			time=new Date().getTime();
 		counter+=1;
 	}
 	
-	public static void main(String[] args)
-	{
+	public void initKinectModule() {
 		
 		if(System.getProperty("os.arch").toLowerCase().indexOf("64")<0)
 		{
@@ -43,16 +42,14 @@ public class Kinect extends J4KSDK
 		}
 		
 		System.out.println("This program will run for about 20 seconds.");
-		Kinect kinect=new Kinect();
-		kinect.start(J4KSDK.COLOR|J4KSDK.DEPTH|J4KSDK.SKELETON);
+		start(J4KSDK.COLOR|J4KSDK.DEPTH|J4KSDK.SKELETON);
 		
 		
 		//Sleep for 20 seconds.
 		try {Thread.sleep(20000);} catch (InterruptedException e) {}
 		
 		
-		kinect.stop();		
-		System.out.println("FPS: "+kinect.counter*1000.0/(new Date().getTime()-kinect.time));
+		stop();
 	}
 
 	public void startRecording(String fileName)
