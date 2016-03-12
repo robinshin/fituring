@@ -91,6 +91,13 @@ public class XEDConvertApp extends DWApp implements ProgressListener{
 		kinect.stop();
 	}
 	
+	public XEDConvertApp() {
+		button = new JButton("Start");
+		button.addActionListener(this);
+		fps = new JLabel("0");
+		kinect = new KinectRecorder(this);
+	}
+	
 	
 	public static void main(String args[]) {
 		
