@@ -57,4 +57,8 @@ public class Kinect extends J4KSDK
 		kinectRecorder.startRecording(fileName);
 	}
 	
+	public static void main(String[] args) {
+		Kinect kinect = new Kinect();
+		kinect.initKinectModule();
+	}
 }
