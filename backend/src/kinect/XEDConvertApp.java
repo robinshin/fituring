@@ -92,10 +92,32 @@ public class XEDConvertApp extends DWApp implements ProgressListener{
 	}
 	
 	public XEDConvertApp() {
-		button = new JButton("Start");
+
+		if(System.getProperty("os.arch").toLowerCase().indexOf("64")<0)
+		{
+			if(DWApp.showConfirmDialog("Performance Warning", "<html><center><br>WARNING: You are running a 32bit version of Java.<br>This may reduce significantly the performance of this application.<br>It is strongly adviced to exit this program and install a 64bit version of Java.<br><br>Do you want to exit now?</center>"))
+				System.exit(0);
+		}
+		
+		setLoadingProgress("Intitializing Kinect...",20);
+		kinect=new KinectRecorder(this);
+		if(!kinect.start(J4KSDK.DEPTH|J4KSDK.COLOR))
+		{
+			DWApp.showErrorDialog("ERROR", "<html><center><br>ERROR: The Kinect device could not be initialized.<br><br>1. Check if the Microsoft's Kinect SDK was succesfully installed on this computer.<br> 2. Check if the Kinect is plugged into a power outlet.<br>3. Check if the Kinect is connected to a USB port of this computer.</center>");	
+		}
+		else
+		{
+			kinect.setNearMode(false);
+		}
+		
+		setLoadingProgress("Intitializing Window...",80);
+		button=new JButton("Start");
 		button.addActionListener(this);
-		fps = new JLabel("0");
-		kinect = new KinectRecorder(this);
+		fps=new JLabel("0");
+		
+		JPanel panel=new JPanel(new GridLayout(1,0));
+		panel.add(button);
+		panel.add(fps);
 	}
 	
 	
