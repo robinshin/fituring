@@ -52,7 +52,6 @@ public class FileCompressor extends ParallelThread{
 		num_of_depth_frames=out.num_of_depth_frames;
 	}
 	
-	@Override
 	public void run() {
 		
 		try {

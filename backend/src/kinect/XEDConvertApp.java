@@ -135,9 +135,7 @@ public class XEDConvertApp extends DWApp implements ProgressListener{
 
 	int max_progress=1;
 	
-	@Override
 	public void setMaxProgress(int value) {max_progress=value;}
 
-	@Override
 	public void setProgress(int value) {fps.setText(""+(int)(value*100f/max_progress)+"%");if(value==max_progress)button.setEnabled(true);}
 }
