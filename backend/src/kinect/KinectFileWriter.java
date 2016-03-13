@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 
 import edu.ufl.digitalworlds.j4k.J4KSDK;
 
+
 public class KinectFileWriter {
 
 	ZipOutputStream f;
