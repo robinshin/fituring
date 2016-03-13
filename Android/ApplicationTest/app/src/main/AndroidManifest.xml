@@ -43,7 +43,9 @@
         <activity
             android:name=".WatchVideosActivity"
             android:label="@string/title_activity_watch_videos"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop">
+        </activity>
     </application>
 
 </manifest>
