@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -61,6 +62,10 @@ public class WatchVideosActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        final VideoView videoView = (VideoView) findViewById(R.id.videoView1);
+        String urlPath = "android.resource://" + getPackageName() + "/" + R.raw.piano_android;
+        videoView.setVideoURI(Uri.parse(urlPath));
+        videoView.start();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +83,6 @@ public class WatchVideosActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
