@@ -62,10 +62,10 @@ public class WatchVideosActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        final VideoView videoView = (VideoView) findViewById(R.id.videoView1);
+        /*final VideoView videoView = (VideoView) findViewById(R.id.videoView1);
         String urlPath = "android.resource://" + getPackageName() + "/" + R.raw.piano_android;
         videoView.setVideoURI(Uri.parse(urlPath));
-        videoView.start();
+        videoView.start();*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +175,12 @@ public class WatchVideosActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_watch_videos, container, false);
+            if(getArguments().getInt(ARG_SECTION_NUMBER) == 1){
+                VideoView videoView = (VideoView) rootView.findViewById(R.id.videoView2);
+                String uriPath = "android.resource://" +  "/" + R.raw.piano_android;
+                videoView.setVideoURI(Uri.parse(uriPath));
+                videoView.start();
+            }
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
