@@ -12,14 +12,15 @@ public class Kinect extends J4KSDK
 	
 	Skeleton currentSkeleton = null;
 	static PrintWriter pw = null;
-	static String filename = "test.csv";
+	static String filename = "danseF120"
+			+ ".csv";
 	int counter=0;
 	long time=0;
 	//KinectRecorder kinectRecorder = new KinectRecorder(new XEDConvertApp());
 	
 	@Override
 	public void onSkeletonFrameEvent(boolean[] skeleton_tracked, float[] positions, float[] orientations, byte[] joint_status) {
-		//System.out.println("New skeleton !");
+		System.out.println("New skeleton !");
 		currentSkeleton = Skeleton.getSkeleton(0, skeleton_tracked, positions, orientations, joint_status, this);
 		
 		pw.print(new Date().getTime()-time);
@@ -77,7 +78,7 @@ public class Kinect extends J4KSDK
 		
 		
 		//Sleep for 20 seconds.
-		try {Thread.sleep(5000);} catch (InterruptedException e) {}
+		try {Thread.sleep(10000);} catch (InterruptedException e) {}
 		
 		if (pw != null) {
 			try { pw.close(); } catch (Exception e) { } ;
