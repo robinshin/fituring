@@ -18,8 +18,8 @@ public class AlphaV3 {
 
 		System.out.println("Creation des instances");
 		Kinect kinect = new Kinect();
-		Classification cl = new Classification();
-		//distanceHands cl = new distanceHands();
+		//Classification cl = new Classification();
+		distanceHands cl = new distanceHands();
 		LectureAudio audio = new LectureAudio();
 		DetectionRythme dr = new DetectionRythme();
 		
@@ -43,7 +43,7 @@ public class AlphaV3 {
 		    cl.stopListening();
 		    dr.stopListening();
 		    System.out.println("Nombre de danceurs : " + kinect.getNumberOfDancers()); 
-			System.out.println(cl.nDollarRegognizer());
+			//System.out.println(cl.nDollarRegognizer());
 			
 		}
 	    System.out.println("Stopping Kinect");
