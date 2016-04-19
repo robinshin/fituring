@@ -19,6 +19,7 @@ public class AlphaV3 {
 		System.out.println("Creation des instances");
 		Kinect kinect = new Kinect();
 		Classification cl = new Classification();
+		//distanceHands cl = new distanceHands();
 		LectureAudio audio = new LectureAudio();
 		DetectionRythme dr = new DetectionRythme();
 		
@@ -27,7 +28,7 @@ public class AlphaV3 {
 		audio.initLectureAudioModule(new Object(), 100);
 		cl.initClassificationModule(new Object(), kinect, (LectureInterface) audio);
 		dr.initRythmeModule(kinect, audio);
-		
+	
 		while(true)
 		{
 			System.out.print("Appuyer sur une Entrer pour commencer (q pour quitter)");
@@ -41,8 +42,9 @@ public class AlphaV3 {
 		    sc.nextLine();
 		    cl.stopListening();
 		    dr.stopListening();
+			System.out.println(cl.nDollarRegognizer());
+			
 		}
-		System.out.println(cl.nDollarRegognizer());
 	    System.out.println("Stopping Kinect");
 		kinect.stop();	
 	    System.out.println("Closing scanner stream");

@@ -71,6 +71,20 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 			secondMoveLeft[i]=substract(steps2.get(i).getCoordinates().get(Skeleton.HAND_LEFT),steps2.get(i).getCoordinates().get(Skeleton.SPINE_MID));
 			secondMoveRight[i]=substract(steps2.get(i).getCoordinates().get(Skeleton.HAND_RIGHT),steps2.get(i).getCoordinates().get(Skeleton.SPINE_MID));
 		}	
+		
+		
+		String samplesDir = NDollarParameters.getInstance().SamplesDirectory;
+		File currentDir = new File(samplesDir);
+		File[] allXMLFiles = currentDir.listFiles(new FilenameFilter() {
+			public boolean accept(File dir, String name) {
+				return name.toLowerCase().endsWith(".xml");
+			}
+		});
+
+		// read them
+		for (int i = 0; i < allXMLFiles.length; ++i) {
+			_rec.LoadGesture(allXMLFiles[i]);
+		}
 	}
 
 	private float[] substract(float[] F1, float[] F2) {
@@ -119,6 +133,7 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	}
 
 	public void stopListening() {
+		strokes.clear();
 		if (points.size() > 1) {
 			strokes.add(new Vector<PointR>(points));
 		}
@@ -127,19 +142,6 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 
 	//Renvoie le nom du geste reconnu
 	public String nDollarRegognizer() {
-		String samplesDir = NDollarParameters.getInstance().SamplesDirectory;
-		File currentDir = new File(samplesDir);
-		File[] allXMLFiles = currentDir.listFiles(new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				return name.toLowerCase().endsWith(".xml");
-			}
-		});
-
-		// read them
-		for (int i = 0; i < allXMLFiles.length; ++i) {
-			_rec.LoadGesture(allXMLFiles[i]);
-		}
-		
 		if (strokes.size() > 0) {
 			Vector<PointR> allPoints = new Vector<PointR>();
 			Enumeration<Vector<PointR>> en = strokes.elements();
