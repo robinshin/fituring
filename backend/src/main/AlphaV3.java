@@ -42,6 +42,7 @@ public class AlphaV3 {
 		    sc.nextLine();
 		    cl.stopListening();
 		    dr.stopListening();
+		    System.out.println("Nombre de danceurs : " + kinect.getNumberOfDancers()); 
 			System.out.println(cl.nDollarRegognizer());
 			
 		}
