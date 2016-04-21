@@ -24,6 +24,7 @@ public class DetectionRythme {
 		this.compteur=0;
 	}
 	
+	
 	public void skeletonReceived(KinectEventInterface e){
 		
 		
