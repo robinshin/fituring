@@ -20,8 +20,12 @@ public class DetectionRythme {
 		this.compteur=0;
 	}
 	
-	public void SetCompteurToZero(){
-		this.compteur=0;
+	public void setCompteurTo200(){
+		this.compteur=200;
+	}
+	
+	public int getCompteur(){
+		return this.compteur;
 	}
 	
 	
@@ -96,7 +100,17 @@ public class DetectionRythme {
 		tab.setData(300,60,(double) e.getNewSkeleton().get3DJointZ(Skeleton.FOOT_RIGHT));
 	
 		compteur=compteur+1;
+		if(this.getCompteur()==300){
+			tab.interpolationEtDistance(tabI);
+			tabI.autocorrelation(autoc);
+			autoc.detectionPics(pics);
+			autoc.test1et2(pics);
+			pics.SetSelectionAutocorr();
+			SommeAutocorr sumAuto = new SommeAutocorr(autoc);
+			sumAuto.SumAutocorr(autoc,pics);
+			sumAuto.detectionPics();
+			this.setCompteurTo200();
 		
-		
+		}
 	}
 }
