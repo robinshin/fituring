@@ -38,14 +38,11 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".NewSongActivity"
-            android:label="@string/title_activity_new_song" />
-        <activity
             android:name=".WatchVideosActivity"
             android:label="@string/title_activity_watch_videos"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".NewSongActivity"></activity>
     </application>
 
 </manifest>
