@@ -46,4 +46,12 @@
         android:layout_marginTop="30dp"
         android:layout_alignEnd="@+id/view" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Let's dance !"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
