@@ -1,5 +1,8 @@
 package camillepact.applicationtest;
 
+import android.os.StrictMode;
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.*;
 import java.net.*;
@@ -11,13 +14,17 @@ public class Client {
     public static void execute() throws IOException {
 
         String[]args = new String[2];
-        args[0] = "localhost";
-        args[1] = "4456";
-        if (args.length != 2) {
+        args[0] = "137.194.23.40";
+        args[1] = "5869";
+        /*if (args.length != 2) {
             System.err.println(
                     "Usage: java EchoClient <host name> <port number>");
             System.exit(1);
-        }
+        }*/
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
 
         String hostName = args[0];
         int portNumber = Integer.parseInt(args[1]);
@@ -34,21 +41,21 @@ public class Client {
             String fromUser;
 
             while ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
+                Log.d("Server",fromServer);
                 if (fromServer.equals("Bye."))
                     break;
 
                 fromUser = stdIn.readLine();
                 if (fromUser != null) {
-                    System.out.println("Client: " + fromUser);
+                    Log.d("Client", fromUser);
                     out.println(fromUser);
                 }
             }
         } catch (UnknownHostException e) {
-            System.err.println("Don't know about host " + hostName);
+            Log.e("Erreur", "Don't know about host " + hostName);
             System.exit(1);
         } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " +
+            Log.e("Erreur", "Couldn't get I/O for the connection to " +
                     hostName);
             System.exit(1);
         }
