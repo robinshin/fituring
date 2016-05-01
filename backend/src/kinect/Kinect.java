@@ -3,16 +3,17 @@ package kinect;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Scanner;
 
 import edu.ufl.digitalworlds.j4k.J4KSDK;
 import edu.ufl.digitalworlds.j4k.Skeleton;
 
 public class Kinect extends J4KSDK 
 {
-	
+	static boolean record = false;
 	Skeleton currentSkeleton = null;
 	static PrintWriter pw = null;
-	static String filename = "danseF120"
+	static String filename = "donneesStan130BPM"
 			+ ".csv";
 	int counter=0;
 	long time=0;
@@ -21,7 +22,18 @@ public class Kinect extends J4KSDK
 	@Override
 	public void onSkeletonFrameEvent(boolean[] skeleton_tracked, float[] positions, float[] orientations, byte[] joint_status) {
 		System.out.println("New skeleton !");
-		currentSkeleton = Skeleton.getSkeleton(0, skeleton_tracked, positions, orientations, joint_status, this);
+		if (record == false)
+			return;
+		int skeletonIdent=0;
+		for(int i = 5; i>=0; i--)
+		{
+			if(skeleton_tracked[i])
+			{
+				skeletonIdent = i;
+			}
+		}
+		currentSkeleton = Skeleton.getSkeleton(skeletonIdent, skeleton_tracked, positions, orientations, joint_status, this);
+		
 		
 		pw.print(new Date().getTime()-time);
 		for(int i=0; i<Skeleton.JOINT_COUNT; i++)
@@ -53,9 +65,10 @@ public class Kinect extends J4KSDK
 	
 	public static void main(String[] args)
 	{
-		
-		System.out.println("Début");
-		Kinect kinect=new Kinect();
+		 Scanner sc = new Scanner(System.in);
+		 String strIn;
+		 
+		 Kinect kinect=new Kinect();
 		
 		try {
 			pw = new PrintWriter(filename);
@@ -73,16 +86,17 @@ public class Kinect extends J4KSDK
 				+ "SHOULDER_RIGHT;ELBOW_RIGHT;WRIST_RIGHT;HAND_RIGHT;HIP_LEFT;KNEE_LEFT;"
 				+ "ANKLE_LEFT;FOOT_LEFT;HIP_RIGHT;KNEE_RIGHT;ANKLE_RIGHT;FOOT_RIGHT;"
 				+ "SPINE_SHOULDER;HAND_TIP_LEFT;THUMB_LEFT;HAND_TIP_RIGHT;THUMB_RIGHT");
-		
+
 		kinect.start(J4KSDK.DEPTH|J4KSDK.SKELETON);
+		System.out.print("Start ?");
+		strIn = sc.nextLine();
 		
-		
-		//Sleep for 20 seconds.
-		try {Thread.sleep(10000);} catch (InterruptedException e) {}
-		
-		if (pw != null) {
-			try { pw.close(); } catch (Exception e) { } ;
-		}
+		record = true;
+				
+		System.out.print("Stop ?");
+		strIn = sc.nextLine();
+
+		record = false;
 		
 		kinect.stop();		
 		System.out.println("FPS: "+kinect.counter*1000.0/(new Date().getTime()-kinect.time));
