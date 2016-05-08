@@ -37,7 +37,12 @@ public class Alpha {
 		cl.addGesture("O.mvt");
 		cl.addGesture("test1main.mvt");
 		cl.addGesture("test2main.mvt");
-
+		cl.addGesture("batterie.mvt");
+		cl.addGesture("saxophone.mvt");
+		cl.addGesture("ventre.mvt");
+		cl.addGesture("discoBras.mvt");
+		cl.addGesture("discoMain.mvt");
+		cl.addGesture("gangnamStyle.mvt");
 		while(true)
 		{
 			System.out.print("Appuyer sur une Entrer pour commencer (q pour quitter)");

@@ -40,7 +40,7 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	///////Options :
 	static final int resetSkeletonNumber = 10; //Adds coordinates in the file every resetSkeletonNumber skeleton received
 	double confidenceValue = 0.3; //Movement recognized if the probability of recognition is superior to confidenceValue
-	double threshold = 0;
+	double threshold = 0.05;
 	double minimumValue;
 	static final float resamplingDistance = (float) 0.05; //distance between two points in resampling
 
