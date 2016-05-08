@@ -1,5 +1,6 @@
 package camillepact.applicationtest;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,6 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -61,6 +64,12 @@ public class WatchVideosActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+
+
+
+
+
 
         /*final VideoView videoView = (VideoView) findViewById(R.id.videoView1);
         String urlPath = "android.resource://" + getPackageName() + "/" + R.raw.piano_android;
@@ -175,15 +184,31 @@ public class WatchVideosActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_watch_videos, container, false);
-            if(getArguments().getInt(ARG_SECTION_NUMBER) == 1){
+
+
+
+            if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
                 VideoView videoView = (VideoView) rootView.findViewById(R.id.videoView2);
-                String uriPath = "android.resource://" +  "/" + R.raw.piano_android;
+                Context context = getContext();
+                String uriPath = "android.resource://" + context.getPackageName()+ "/" + R.raw.piano_android;
                 videoView.setVideoURI(Uri.parse(uriPath));
                 videoView.start();
+
+
             }
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+            if(getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+                VideoView videoView = (VideoView) rootView.findViewById(R.id.videoView2);
+                Context context = getContext();
+                String uriPath = "android.resource://" + context.getPackageName()+ "/" + R.raw.video2;
+                videoView.setVideoURI(Uri.parse(uriPath));
+                videoView.start();
+
+            }
+
+
             return rootView;
+
         }
     }
 
