@@ -1,10 +1,12 @@
 package classification;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.Enumeration;
@@ -152,15 +154,28 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	
 	@Override
 	public int addGesture(String path) {
-		// TODO Auto-generated method stub
-		return 0;
+		Movement m = null;
+		File fichier =  new File("movement.database/" + path) ;
+		ObjectInputStream ois;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(fichier));
+			m = (Movement)ois.readObject() ;
+			movements.add(m);
+			ois.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return movements.size() - 1;
 	}
 	
-	public void addMovement(Movement mvt)
-	{
-		System.out.println(mvt.getPath() + " ajout�");
-		movements.add(mvt);
-	}
 	@Override
 	public int getNumberOfGestures() {
 		return movements.size();

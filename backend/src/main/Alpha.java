@@ -31,119 +31,13 @@ public class Alpha {
 		cl.initClassificationModule(kinect);
 		//dr.initRythmeModule(kinect, audio);
 		
-		Movement m = null;
-		File fichier =  new File("movement.database/I.mvt") ;
-		ObjectInputStream ois;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(fichier));
-			m = (Movement)ois.readObject() ;
-			cl.addMovement(m);
-			ois.close();
+		cl.addGesture("dab.mvt");
+		cl.addGesture("Envol.mvt");
+		cl.addGesture("I.mvt");
+		cl.addGesture("O.mvt");
+		cl.addGesture("test1main.mvt");
+		cl.addGesture("test2main.mvt");
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		m = null;
-		fichier =  new File("movement.database/O.mvt") ;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(fichier));
-			m = (Movement)ois.readObject() ;
-			cl.addMovement(m);
-			ois.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		m = null;
-		fichier =  new File("movement.database/dab.mvt") ;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(fichier));
-			m = (Movement)ois.readObject() ;
-			cl.addMovement(m);
-			ois.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		m = null;
-		fichier =  new File("movement.database/test2main.mvt") ;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(fichier));
-			m = (Movement)ois.readObject() ;
-			cl.addMovement(m);
-			ois.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		m = null;
-		fichier =  new File("movement.database/test1main.mvt") ;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(fichier));
-			m = (Movement)ois.readObject() ;
-			cl.addMovement(m);
-			ois.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		m = null;
-		fichier =  new File("movement.database/Envol.mvt") ;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(fichier));
-			m = (Movement)ois.readObject() ;
-			cl.addMovement(m);
-			ois.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		while(true)
 		{
 			System.out.print("Appuyer sur une Entrer pour commencer (q pour quitter)");
