@@ -110,7 +110,7 @@ public class Recorder implements ClassificationInterface, KinectListenerInterfac
 		Gesture right = fifoRightHand.getAll();
 		mvt.addGesture(right);
 		
-		File fichier =  new File("datas/" + gestureName + ".mvt") ;
+		File fichier =  new File("movement.database/" + gestureName + ".mvt") ;
 		try {
 			ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(fichier)) ;
 			oos.writeObject(mvt);
