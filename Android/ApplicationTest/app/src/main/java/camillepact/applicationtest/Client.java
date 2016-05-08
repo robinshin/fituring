@@ -14,7 +14,7 @@ public class Client {
     public static void execute() throws IOException {
 
         String[]args = new String[2];
-        args[0] = "137.194.23.40";
+        args[0] = "137.194.22.231";
         args[1] = "5869";
         /*if (args.length != 2) {
             System.err.println(
@@ -23,7 +23,6 @@ public class Client {
         }*/
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
         StrictMode.setThreadPolicy(policy);
 
         String hostName = args[0];
@@ -37,19 +36,21 @@ public class Client {
         ) {
             BufferedReader stdIn =
                     new BufferedReader(new InputStreamReader(System.in));
-            String fromServer;
-            String fromUser;
+            String fromServer = "1";
+            String fromUser = "2";
 
-            while ((fromServer = in.readLine()) != null) {
-                Log.d("Server",fromServer);
-                if (fromServer.equals("Bye."))
+            while (true) {
+                fromServer = in.readLine();
+                Log.d("Server", fromServer);
+                if(fromServer.equals("Hello"))
+                    out.println(fromUser);
+                //fromUser = stdIn.readLine();
+                if(fromServer.equals("Bye."))
                     break;
-
-                fromUser = stdIn.readLine();
-                if (fromUser != null) {
+                /*if (fromUser != null) {
                     Log.d("Client", fromUser);
                     out.println(fromUser);
-                }
+                }*/
             }
         } catch (UnknownHostException e) {
             Log.e("Erreur", "Don't know about host " + hostName);
