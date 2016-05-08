@@ -206,6 +206,15 @@ public class WatchVideosActivity extends AppCompatActivity {
 
             }
 
+            if(getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+                VideoView videoView = (VideoView) rootView.findViewById(R.id.videoView2);
+                Context context = getContext();
+                String uriPath = "android.resource://" + context.getPackageName()+ "/" + R.raw.video3;
+                videoView.setVideoURI(Uri.parse(uriPath));
+                videoView.start();
+
+            }
+
 
             return rootView;
 
