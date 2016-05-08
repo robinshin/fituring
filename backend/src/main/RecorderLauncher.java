@@ -15,7 +15,7 @@ import interfaces.LectureInterface;
 import kinect.Kinect;
 import syntheseAudio.LectureAudio;
 
-public class Alpha {
+public class RecorderLauncher {
 
 	public static void main(String[] args) 
 	{
@@ -25,8 +25,8 @@ public class Alpha {
 		System.out.println("Creation des instances");
 		Kinect kinect = new Kinect();
 		//Classification cl = new Classification();
-		Classification2 cl = new Classification2();
-		//Recorder cl = new Recorder();
+		//Classification2 cl = new Classification2();
+		Recorder cl = new Recorder();
 		LectureAudio audio = new LectureAudio();
 		//DetectionRythme dr = new DetectionRythme();
 		
@@ -35,7 +35,7 @@ public class Alpha {
 		audio.initLectureAudioModule(new Object(), 100);
 		cl.initClassificationModule(kinect);
 		//dr.initRythmeModule(kinect, audio);
-		
+		/*
 		Movement m = null;
 		File fichier =  new File("datas/I.mvt") ;
 		ObjectInputStream ois;
@@ -73,7 +73,7 @@ public class Alpha {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		*/
 		while(true)
 		{
 			System.out.print("Appuyer sur une Entrer pour commencer (q pour quitter)");

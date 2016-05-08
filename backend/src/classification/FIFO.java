@@ -25,7 +25,7 @@ public class FIFO {
 	public Gesture getNlastPoints(int N)
 	{
 		Gesture gestureToReturn = new Gesture(jointID);
-		for(int i = FIFOlenght - N; i < FIFOlenght; i++)
+		for(int i = FIFO.size() - N; i < FIFO.size(); i++)
 			gestureToReturn.addPoint(FIFO.getPoint(i));
 		return gestureToReturn;
 	}
@@ -43,5 +43,10 @@ public class FIFO {
 	public Gesture getAll()
 	{
 		return FIFO;
+	}
+	
+	public int getSize()
+	{
+		return FIFO.size();
 	}
 }

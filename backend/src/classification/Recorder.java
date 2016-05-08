@@ -103,11 +103,11 @@ public class Recorder implements ClassificationInterface, KinectListenerInterfac
 
 	public void stopListening() {
 		kinectModule.unsetListener(this);	
-		Movement mvt = new Movement("Test.mvt");
+		Movement mvt = new Movement("O.mvt");
 		Gesture right = fifoRightHand.getAll();
 		mvt.addGesture(right);
 		
-		File fichier =  new File("datas/Test.mvt") ;
+		File fichier =  new File("datas/O.mvt") ;
 		try {
 			ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(fichier)) ;
 			oos.writeObject(mvt);
