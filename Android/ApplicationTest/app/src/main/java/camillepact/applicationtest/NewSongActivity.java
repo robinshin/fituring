@@ -17,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -26,6 +28,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.io.IOException;
 
 public class NewSongActivity extends AppCompatActivity {
+    Client client = new Client();
+    private int volume = 50;
+    private int style = 2;
+    private int musicOnOff = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +39,32 @@ public class NewSongActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_song);
 
 
-        Button button= (Button) findViewById(R.id.button);
+        Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //System.out.println("bouh!");
-                Client client = new Client();
+
                 try {
-                    client.execute();
+                    client.execute(volume*10 + style);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        SeekBar seekbar = (SeekBar) findViewById(R.id.progressBar);
+        seekbar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // TODO Auto-generated method stub
+                volume = seekBar.getProgress();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
     }
