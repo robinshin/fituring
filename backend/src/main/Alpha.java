@@ -7,11 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Scanner;
 
-import classification.Classification2;
+import classification.Classification;
 import classification.Movement;
-import classification.Recorder;
-import detectionRythme.DetectionRythme;
-import interfaces.LectureInterface;
 import kinect.Kinect;
 import syntheseAudio.LectureAudio;
 
@@ -24,13 +21,11 @@ public class Alpha {
 
 		System.out.println("Creation des instances");
 		Kinect kinect = new Kinect();
-		//Classification cl = new Classification();
-		Classification2 cl = new Classification2();
-		//Recorder cl = new Recorder();
+		Classification cl = new Classification();
 		LectureAudio audio = new LectureAudio();
 		//DetectionRythme dr = new DetectionRythme();
 		
-		System.out.println("Initialisation des modules");
+		System.out.println("Initialisation des modulesssss");
 		kinect.initKinectModule();
 		audio.initLectureAudioModule(new Object(), 100);
 		cl.initClassificationModule(kinect);
@@ -57,6 +52,24 @@ public class Alpha {
 		}
 		m = null;
 		fichier =  new File("datas/O.mvt") ;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(fichier));
+			m = (Movement)ois.readObject() ;
+			cl.addMovement(m);
+			ois.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		m = null;
+		fichier =  new File("datas/dab.mvt") ;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(fichier));
 			m = (Movement)ois.readObject() ;

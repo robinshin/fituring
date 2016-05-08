@@ -36,7 +36,7 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	
 	
 	@Override
-	public void initClassificationModule(KinectInterface kinectModule, MovementFoundInterface engine) {
+	public void initClassificationModule(KinectInterface kinectModule) {
 
 		this.kinectModule = kinectModule;
 		
@@ -109,6 +109,7 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	
 	public void addMovement(Movement mvt)
 	{
+		System.out.println(mvt.getPath() + " ajouté");
 		movements.add(mvt);
 	}
 	@Override
@@ -151,9 +152,9 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 				distanceMin = meanMovementDistance;
 				tmpResult = movement;
 			}
-			System.out.println(movement.getPath() + " - " + meanMovementDistance);
+			//System.out.println(movement.getPath() + " - " + meanMovementDistance);
 		}
-		//System.out.println(tmpResult.getPath() + " - " + distanceMin);
+		System.out.println(tmpResult.getPath() + " - " + distanceMin);
 		return tmpResult;
 	}
 }

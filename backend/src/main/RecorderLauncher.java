@@ -30,12 +30,20 @@ public class RecorderLauncher {
 		kinect.initKinectModule();
 		rec.initClassificationModule(kinect);
 
-
+		System.out.print("Appuyer sur une Entrer pour commencer (q pour quitter)");
+		strIn = sc.nextLine();
 		while(true)
 		{
-			System.out.print("Appuyer sur une Entrer pour commencer (q pour quitter)");
+			if(strIn.length() >= 1 && strIn.charAt(0) == 'q')
+				break;
+			
+			System.out.println("Ajout des listeners");
+			rec.startListening();
+			sc.nextLine();
+			rec.stopListening();
+			
+			System.out.print("Appuyer sur une Entrer pour recommencer, s pour sauvegarder le mouvement, q pour quitter");
 			strIn = sc.nextLine();
-
 			if (strIn.length() >= 1 && strIn.charAt(0) == 's') {
 				Scanner scName = new Scanner(System.in);
 				System.out.println("Entrer le nom du mouvement : ");
@@ -45,18 +53,9 @@ public class RecorderLauncher {
 					gestureName = sc.nextLine();
 				}
 				scName.close();
-				rec.setGestureName(gestureName);
-				rec.stopListening();
-				System.out.print("Appuyer sur une Entrer pour commencer, s pour sauvegarder le mouvement, q pour quitter");
-				strIn = sc.nextLine();
-			}
-
-			if(strIn.length() >= 1 && strIn.charAt(0) == 'q')
+				rec.saveMovement(gestureName);
 				break;
-			System.out.println("Ajout des listeners");
-
-			rec.startListening();
-			sc.nextLine();
+			}		
 		}
 		System.out.println("Stopping Kinect");
 		kinect.stop();	
