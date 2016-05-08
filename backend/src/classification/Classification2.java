@@ -110,6 +110,7 @@ public class Classification2 implements ClassificationInterface, KinectListenerI
 	public void addMovement(Movement mvt)
 	{
 		movements.add(mvt);
+		System.out.println(mvt.getPath() + " ajouté");
 	}
 	@Override
 	public int getNumberOfGestures() {
@@ -151,9 +152,9 @@ public class Classification2 implements ClassificationInterface, KinectListenerI
 				distanceMin = meanMovementDistance;
 				tmpResult = movement;
 			}
-			System.out.println(movement.getPath() + " - " + meanMovementDistance);
+			//System.out.println(movement.getPath() + " - " + meanMovementDistance);
 		}
-		//System.out.println(tmpResult.getPath() + " - " + distanceMin);
+		System.out.println(tmpResult.getPath() + " - " + distanceMin);
 		return tmpResult;
 	}
 }
