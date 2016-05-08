@@ -33,10 +33,12 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	private int numberOfSkeletonReceived = 0; //Used to record a skeleton every 333ms
 	private boolean firstSkeletonReceived = true; //Used in resampling
 	private boolean recorder = false;
+	private double previousDistanceMin = Double.MAX_VALUE;
 
 	///////Options :
 	static final int resetSkeletonNumber = 10; //Adds coordinates in the file every resetSkeletonNumber skeleton received
-	double confidenceValue = 0.85; //Movement recognized if the probability of recognition is superior to confidenceValue
+	double confidenceValue = 0.2; //Movement recognized if the probability of recognition is superior to confidenceValue
+	double minimumValue;
 	static final float resamplingDistance = (float) 0.05; //distance between two points in resampling
 
 	public static final int RECORD_LEFT_HAND = 0;
@@ -148,7 +150,7 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	
 	public void addMovement(Movement mvt)
 	{
-		System.out.println(mvt.getPath() + " ajouté");
+		System.out.println(mvt.getPath() + " ajoutï¿½");
 		movements.add(mvt);
 	}
 	@Override
@@ -196,8 +198,11 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 				tmpResult = movement;
 			}
 		}
-		if(distanceMin <= 0.2)
-			System.out.println(tmpResult.getPath() + " - " + distanceMin);
+		if(distanceMin <= confidenceValue) {
+			if (previousDistanceMin < distanceMin)
+				System.out.println(tmpResult.getPath() + " - " + distanceMin);
+		}
+		previousDistanceMin = distanceMin;
 
 		return tmpResult;
 	}
