@@ -26,11 +26,13 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
+import java.io.*;
+import java.net.*;
 
 public class NewSongActivity extends AppCompatActivity {
     Client client = new Client();
-    private int volume = 50;
-    private int style = 2;
+    private static int volume = 50;
+    private static int style = 2;
     private int musicOnOff = 0;
 
     @Override
@@ -38,16 +40,12 @@ public class NewSongActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_song);
 
+        new Thread(client).start();
 
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                try {
-                    client.execute(volume*10 + style);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
 
@@ -67,5 +65,9 @@ public class NewSongActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+    }
+
+    public static String getInfo(){
+        return Integer.toString(volume*10 + style);
     }
 }
