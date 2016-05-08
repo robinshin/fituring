@@ -43,8 +43,4 @@ public class Movement implements Serializable {
 	{
 		return movement;
 	}
-	
-	public void setNormalizationCoefficient(double normalizationCoefficient) {
-		this.normalizationCoefficient = normalizationCoefficient;
-	}
 }
