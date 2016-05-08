@@ -145,7 +145,7 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 				meanGestureDistance = totalGestureDistance / gestureSize;
 				totalMovementDistance += meanGestureDistance;
 			}
-			meanMovementDistance = totalMovementDistance / movementsCount;
+			meanMovementDistance = totalMovementDistance / movementsCount * movement.getNormalizationCoefficient();
 			
 			if (meanMovementDistance <= distanceMin)
 			{

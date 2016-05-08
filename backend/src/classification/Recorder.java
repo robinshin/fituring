@@ -106,7 +106,7 @@ public class Recorder implements ClassificationInterface, KinectListenerInterfac
 	}
 	
 	public void saveMovement(String gestureName) {
-		Movement mvt = new Movement(gestureName + ".mvt");
+		Movement mvt = new Movement(gestureName + ".mvt", 0);
 		Gesture right = fifoRightHand.getAll();
 		mvt.addGesture(right);
 		
