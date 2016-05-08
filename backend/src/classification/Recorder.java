@@ -48,7 +48,7 @@ public class Recorder implements ClassificationInterface, KinectListenerInterfac
 		//this.engine = engine ;
 		
 		// DEBUG :
-		File currentDir = new File("datas");
+		File currentDir = new File("movement.database");
 		File[] allMVTFiles = currentDir.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {

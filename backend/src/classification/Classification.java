@@ -44,7 +44,7 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 		//this.engine = engine ;
 		
 		// DEBUG :
-		File currentDir = new File("datas");
+		File currentDir = new File("movement.database");
 		File[] allMVTFiles = currentDir.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
@@ -109,7 +109,7 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	
 	public void addMovement(Movement mvt)
 	{
-		System.out.println(mvt.getPath() + " ajouté");
+		System.out.println(mvt.getPath() + " ajoutï¿½");
 		movements.add(mvt);
 	}
 	@Override

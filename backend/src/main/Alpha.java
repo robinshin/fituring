@@ -32,7 +32,7 @@ public class Alpha {
 		//dr.initRythmeModule(kinect, audio);
 		
 		Movement m = null;
-		File fichier =  new File("datas/I.mvt") ;
+		File fichier =  new File("movement.database/I.mvt") ;
 		ObjectInputStream ois;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(fichier));
@@ -51,7 +51,7 @@ public class Alpha {
 			e.printStackTrace();
 		}
 		m = null;
-		fichier =  new File("datas/O.mvt") ;
+		fichier =  new File("movement.database/O.mvt") ;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(fichier));
 			m = (Movement)ois.readObject() ;
@@ -69,7 +69,7 @@ public class Alpha {
 			e.printStackTrace();
 		}
 		m = null;
-		fichier =  new File("datas/dab.mvt") ;
+		fichier =  new File("movement.database/dab.mvt") ;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(fichier));
 			m = (Movement)ois.readObject() ;
