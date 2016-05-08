@@ -35,6 +35,10 @@ public class Movement implements Serializable {
 		return path;
 	}
 	
+	public void setNormalizationCoefficient(double normalizationCoefficient) {
+		this.normalizationCoefficient = normalizationCoefficient;
+	}
+	
 	public Vector<Gesture> getGestures()
 	{
 		return movement;

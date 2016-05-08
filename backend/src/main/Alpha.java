@@ -25,7 +25,7 @@ public class Alpha {
 		LectureAudio audio = new LectureAudio();
 		//DetectionRythme dr = new DetectionRythme();
 		
-		System.out.println("Initialisation des modulesssss");
+		System.out.println("Initialisation des modules");
 		kinect.initKinectModule();
 		audio.initLectureAudioModule(new Object(), 100);
 		cl.initClassificationModule(kinect);
@@ -70,6 +70,63 @@ public class Alpha {
 		}
 		m = null;
 		fichier =  new File("movement.database/dab.mvt") ;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(fichier));
+			m = (Movement)ois.readObject() ;
+			cl.addMovement(m);
+			ois.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		m = null;
+		fichier =  new File("movement.database/test2main.mvt") ;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(fichier));
+			m = (Movement)ois.readObject() ;
+			cl.addMovement(m);
+			ois.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		m = null;
+		fichier =  new File("movement.database/test1main.mvt") ;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(fichier));
+			m = (Movement)ois.readObject() ;
+			cl.addMovement(m);
+			ois.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		m = null;
+		fichier =  new File("movement.database/Envol.mvt") ;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(fichier));
 			m = (Movement)ois.readObject() ;

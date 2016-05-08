@@ -30,19 +30,18 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	
 	Vector<Movement> movements = new Vector<Movement>();
 	
-	int numberOfSkeletonReceived = 0; //Used to record a skeleton every 333ms
-	boolean firstSkeletonReceived = true; //Used in resampling
-	int numberOfGestures = 0; //Contains the number of gestures in the database
-
+	private int numberOfSkeletonReceived = 0; //Used to record a skeleton every 333ms
+	private boolean firstSkeletonReceived = true; //Used in resampling
+	private boolean recorder = false;
 
 	///////Options :
 	static final int resetSkeletonNumber = 10; //Adds coordinates in the file every resetSkeletonNumber skeleton received
 	double confidenceValue = 0.85; //Movement recognized if the probability of recognition is superior to confidenceValue
 	static final float resamplingDistance = (float) 0.05; //distance between two points in resampling
 
-	private static final int RECORD_LEFT_HAND = 0;
-	private static final int RECORD_RIGHT_HAND = 1;
-	private static final int RECORD_BOTH_HANDS = 2;
+	public static final int RECORD_LEFT_HAND = 0;
+	public static final int RECORD_RIGHT_HAND = 1;
+	public static final int RECORD_BOTH_HANDS = 2;
 	
 	@Override
 	public void initClassificationModule(KinectInterface kinectModule) {
@@ -51,22 +50,6 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 		
 		/////// A remettre : comment√© pour les tests
 		//this.engine = engine ;
-		
-		// DEBUG :
-		File currentDir = new File("movement.database");
-		File[] allMVTFiles = currentDir.listFiles(new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				return name.toLowerCase().endsWith(".mvt");
-			}
-		});
-
-		// read them and determine the maximum length of a distance
-		for (int i = 0; i < allMVTFiles.length; ++i) {
-		
-			numberOfGestures++;
-		}
-		// FIN DEBUG
 		
 		
 		// INITIALISATION DE LA HASHTABLE DE FIFOS
@@ -85,8 +68,8 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 		float baseY = newSkeleton.get3DJointY(Skeleton.SPINE_MID);
 		float baseZ = newSkeleton.get3DJointZ(Skeleton.SPINE_MID);
 		Point rightHandPoint = new Point(newSkeleton.get3DJointX(Skeleton.HAND_RIGHT) - baseX, 
-						newSkeleton.get3DJointY(Skeleton.HAND_RIGHT) - baseY,
-						newSkeleton.get3DJointZ(Skeleton.HAND_RIGHT) - baseZ);
+				newSkeleton.get3DJointY(Skeleton.HAND_RIGHT) - baseY,
+				newSkeleton.get3DJointZ(Skeleton.HAND_RIGHT) - baseZ);
 		
 		Point leftHandPoint = new Point(newSkeleton.get3DJointX(Skeleton.HAND_LEFT) - baseX, 
 				newSkeleton.get3DJointY(Skeleton.HAND_LEFT) - baseY,
@@ -114,8 +97,8 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 			fifos.get(Skeleton.HAND_LEFT).addCapture(leftHandPoint);
 			numberOfSkeletonReceived = 0;
 		}
-		
-		recognize();
+		if(!recorder)
+			recognize();
 	}
 
 	public void startListening() {
@@ -165,7 +148,7 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	
 	public void addMovement(Movement mvt)
 	{
-		System.out.println(mvt.getPath() + " ajoutÔøΩ");
+		System.out.println(mvt.getPath() + " ajoutÈ");
 		movements.add(mvt);
 	}
 	@Override
@@ -176,22 +159,26 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 	public Movement recognize()
 	{
 		double distanceMin = Double.POSITIVE_INFINITY;
-		int movementsCount = 0;
-		
+	
 		Movement tmpResult = null;
 		
 		for(Movement movement : movements)
 		{
-			movementsCount++;
 			double totalMovementDistance = 0;
 			double meanMovementDistance = 0;
+			int gestureCount = 0;
+
+			movement.setNormalizationCoefficient(1);
 			for(Gesture gesture : movement.getGestures())
 			{
+				gestureCount++;
 				double totalGestureDistance = 0;
 				double meanGestureDistance = 0;
 				int gestureSize = gesture.size();
 				
 				FIFO currentFIFO = fifos.get(gesture.getJointID());
+				if (currentFIFO.getSize() < gestureSize)
+					return tmpResult;
 				Gesture shortedFIFO = currentFIFO.getNlastPoints(gestureSize);
 				
 				for(int i = 0; i < gestureSize; i++)
@@ -200,17 +187,24 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 				meanGestureDistance = totalGestureDistance / gestureSize;
 				totalMovementDistance += meanGestureDistance;
 			}
-			meanMovementDistance = totalMovementDistance / movementsCount * movement.getNormalizationCoefficient();
-			
+			meanMovementDistance = totalMovementDistance / gestureCount * movement.getNormalizationCoefficient();
+			gestureCount = 0;
+
 			if (meanMovementDistance <= distanceMin)
 			{
 				distanceMin = meanMovementDistance;
 				tmpResult = movement;
 			}
-			//System.out.println(movement.getPath() + " - " + meanMovementDistance);
 		}
-		System.out.println(tmpResult.getPath() + " - " + distanceMin);
+		if(distanceMin <= 0.2)
+			System.out.println(tmpResult.getPath() + " - " + distanceMin);
+
 		return tmpResult;
+	}
+	
+	public void setRecorder()
+	{
+		recorder = true;
 	}
 }
 

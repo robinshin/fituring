@@ -1,19 +1,8 @@
 package main;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.Scanner;
-
 import classification.Classification;
-import classification.Movement;
-import classification.Recorder;
-import detectionRythme.DetectionRythme;
-import interfaces.LectureInterface;
 import kinect.Kinect;
-import syntheseAudio.LectureAudio;
 
 public class RecorderLauncher {
 
@@ -24,11 +13,12 @@ public class RecorderLauncher {
 
 		System.out.println("Creation des instances");
 		Kinect kinect = new Kinect();
-		Recorder rec = new Recorder();
+		Classification cl = new Classification();
 
 		System.out.println("Initialisation des modules");
 		kinect.initKinectModule();
-		rec.initClassificationModule(kinect);
+		cl.initClassificationModule(kinect);
+		cl.setRecorder();
 
 		System.out.print("Appuyer sur une Entrer pour commencer (q pour quitter)");
 		strIn = sc.nextLine();
@@ -38,9 +28,9 @@ public class RecorderLauncher {
 				break;
 			
 			System.out.println("Ajout des listeners");
-			rec.startListening();
+			cl.startListening();
 			sc.nextLine();
-			rec.stopListening();
+			cl.stopListening();
 			
 			System.out.print("Appuyer sur une Entrer pour recommencer, s pour sauvegarder le mouvement, q pour quitter");
 			strIn = sc.nextLine();
@@ -52,8 +42,17 @@ public class RecorderLauncher {
 					System.out.println("Champ vide ! Entrer le nom du mouvement : ");
 					gestureName = sc.nextLine();
 				}
-				scName.close();
-				rec.saveMovement(gestureName);
+				System.out.println("0=left ; 1=right ; 2=both");
+				strIn=sc.nextLine();
+				int whichJoint;
+				if (strIn.length() >= 1 && strIn.charAt(0) == '0')
+					whichJoint = Classification.RECORD_LEFT_HAND;
+				if (strIn.length() >= 1 && strIn.charAt(0) == '1')
+					whichJoint = Classification.RECORD_RIGHT_HAND;
+				else
+					whichJoint = Classification.RECORD_BOTH_HANDS;
+				cl.saveMovement(gestureName, whichJoint);
+				System.out.println("Gesture saved !");
 				break;
 			}		
 		}
