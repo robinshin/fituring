@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Scanner;
 
-import classification.Classification2;
+import classification.Classification;
 import classification.Movement;
 import classification.Recorder;
 import detectionRythme.DetectionRythme;
@@ -19,81 +19,49 @@ public class RecorderLauncher {
 
 	public static void main(String[] args) 
 	{
-	    Scanner sc = new Scanner(System.in);
-	    String strIn;
+		Scanner sc = new Scanner(System.in);
+		String strIn;
 
 		System.out.println("Creation des instances");
 		Kinect kinect = new Kinect();
-		//Classification cl = new Classification();
-		//Classification2 cl = new Classification2();
-		Recorder cl = new Recorder();
-		LectureAudio audio = new LectureAudio();
-		//DetectionRythme dr = new DetectionRythme();
-		
+		Recorder rec = new Recorder();
+
 		System.out.println("Initialisation des modules");
 		kinect.initKinectModule();
-		audio.initLectureAudioModule(new Object(), 100);
-		cl.initClassificationModule(kinect);
-		//dr.initRythmeModule(kinect, audio);
-		/*
-		Movement m = null;
-		File fichier =  new File("datas/I.mvt") ;
-		ObjectInputStream ois;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(fichier));
-			m = (Movement)ois.readObject() ;
-			cl.addMovement(m);
-			ois.close();
+		rec.initClassificationModule(kinect);
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		m = null;
-		fichier =  new File("datas/O.mvt") ;
-		try {
-			ois = new ObjectInputStream(new FileInputStream(fichier));
-			m = (Movement)ois.readObject() ;
-			cl.addMovement(m);
-			ois.close();
 
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 		while(true)
 		{
 			System.out.print("Appuyer sur une Entrer pour commencer (q pour quitter)");
 			strIn = sc.nextLine();
-		    if(strIn.length() >= 1 && strIn.charAt(0) == 'q')
-		    	break;
+
+			if (strIn.length() >= 1 && strIn.charAt(0) == 's') {
+				Scanner scName = new Scanner(System.in);
+				System.out.println("Entrer le nom du mouvement : ");
+				String gestureName = scName.nextLine();
+				while (gestureName == null || gestureName.equals("")) {
+					System.out.println("Champ vide ! Entrer le nom du mouvement : ");
+					gestureName = sc.nextLine();
+				}
+				scName.close();
+				rec.setGestureName(gestureName);
+				rec.stopListening();
+				System.out.print("Appuyer sur une Entrer pour commencer, s pour sauvegarder le mouvement, q pour quitter");
+				strIn = sc.nextLine();
+			}
+
+			if(strIn.length() >= 1 && strIn.charAt(0) == 'q')
+				break;
 			System.out.println("Ajout des listeners");
 
-		    cl.startListening();
-		    //dr.startListening();
-		    sc.nextLine();
-		    cl.stopListening();
-		    //dr.stopListening();
+			rec.startListening();
+			sc.nextLine();
 		}
-		//System.out.println(cl.nDollarRecognizer());
-	    System.out.println("Stopping Kinect");
+		System.out.println("Stopping Kinect");
 		kinect.stop();	
-	    System.out.println("Closing scanner stream");
+		System.out.println("Closing scanner stream");
 		sc.close();
 		System.out.println("FPS: "+kinect.getFPS());
 	}
-
 }

@@ -1,11 +1,7 @@
 package classification;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Vector;
 import edu.ufl.digitalworlds.j4k.Skeleton;
 import interfaces.ClassificationInterface;
@@ -19,12 +15,10 @@ import interfaces.MovementFoundInterface;
  * @author robin
  *
  */
-public class Recorder implements ClassificationInterface, KinectListenerInterface {
+public class Classification implements ClassificationInterface, KinectListenerInterface {
 
 	MovementFoundInterface engine ;
 	KinectInterface kinectModule;
-	
-	String gestureName = "test";
 
 	FIFO fifoRightHand = new FIFO(100, Skeleton.HAND_LEFT);
 	Vector<Movement> movements = new Vector<Movement>();
@@ -42,7 +36,7 @@ public class Recorder implements ClassificationInterface, KinectListenerInterfac
 	
 	
 	@Override
-	public void initClassificationModule(KinectInterface kinectModule) {
+	public void initClassificationModule(KinectInterface kinectModule, MovementFoundInterface engine) {
 
 		this.kinectModule = kinectModule;
 		
@@ -93,35 +87,18 @@ public class Recorder implements ClassificationInterface, KinectListenerInterfac
 		if ((numberOfSkeletonReceived >= resetSkeletonNumber) 
 				|| (newPoint.distanceTo(fifoRightHand.getLastPoint()) > resamplingDistance)) {
 			fifoRightHand.addCapture(newPoint);
-			System.out.println("Nouveau point");
 			numberOfSkeletonReceived = 0;
 		}
+		
+		recognize();
 	}
 
 	public void startListening() {
-		fifoRightHand.clear();
 		kinectModule.setListener(this);
 	}
 
 	public void stopListening() {
-		kinectModule.unsetListener(this);	
-		Movement mvt = new Movement(gestureName + ".mvt");
-		Gesture right = fifoRightHand.getAll();
-		mvt.addGesture(right);
-		
-		File fichier =  new File("datas/" + gestureName + ".mvt") ;
-		try {
-			ObjectOutputStream oos =  new ObjectOutputStream(new FileOutputStream(fichier)) ;
-			oos.writeObject(mvt);
-			oos.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		kinectModule.unsetListener(this);		
 	}
 
 	@Override
@@ -139,13 +116,9 @@ public class Recorder implements ClassificationInterface, KinectListenerInterfac
 		return movements.size();
 	}
 	
-	public void setGestureName(String gestureName) {
-		this.gestureName = gestureName;
-	}
-	
 	public Movement recognize()
 	{
-		int distanceMin = Integer.MAX_VALUE;
+		double distanceMin = Double.POSITIVE_INFINITY;
 		int movementsCount = 0;
 		
 		Movement tmpResult = null;
@@ -153,17 +126,20 @@ public class Recorder implements ClassificationInterface, KinectListenerInterfac
 		for(Movement movement : movements)
 		{
 			movementsCount++;
-			int totalMovementDistance = 0;
-			int meanMovementDistance = 0;
+			double totalMovementDistance = 0;
+			double meanMovementDistance = 0;
 			for(Gesture gesture : movement.getGestures())
 			{
-				int totalGestureDistance = 0;
-				int meanGestureDistance = 0;
+				double totalGestureDistance = 0;
+				double meanGestureDistance = 0;
 				int gestureSize = gesture.size();
+				if(fifoRightHand.getSize() < gestureSize)
+					return tmpResult;
+				
 				Gesture shortedFIFO = fifoRightHand.getNlastPoints(gestureSize);
 				
 				for(int i = 0; i < gestureSize; i++)
-					totalGestureDistance += gesture.getPoint(i).distanceTo(shortedFIFO.getPoint(i));
+					totalGestureDistance += (double) gesture.getPoint(i).distanceTo(shortedFIFO.getPoint(i));
 				
 				meanGestureDistance = totalGestureDistance / gestureSize;
 				totalMovementDistance += meanGestureDistance;
@@ -171,9 +147,13 @@ public class Recorder implements ClassificationInterface, KinectListenerInterfac
 			meanMovementDistance = totalMovementDistance / movementsCount;
 			
 			if (meanMovementDistance <= distanceMin)
+			{
+				distanceMin = meanMovementDistance;
 				tmpResult = movement;
+			}
+			System.out.println(movement.getPath() + " - " + meanMovementDistance);
 		}
-		System.out.println(tmpResult.getPath() + " - " + distanceMin);
+		//System.out.println(tmpResult.getPath() + " - " + distanceMin);
 		return tmpResult;
 	}
 }
