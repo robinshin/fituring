@@ -16,7 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -24,6 +27,8 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewSongActivity extends AppCompatActivity {
 
@@ -45,5 +50,21 @@ public class NewSongActivity extends AppCompatActivity {
                 }
             }
         });
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        //Création d'une liste d'élément à mettre dans le Spinner(pour l'exemple)
+        List list = new ArrayList();
+        list.add("Electro");
+        list.add("Disco");
+        list.add("Arabe");
+        list.add("Hip-Hop");
+        ArrayAdapter adapter = new ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                list
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+
     }
 }
