@@ -17,7 +17,6 @@ public class Movement implements Serializable {
 	public Movement(String path)
 	{
 		this.path = path;
-		this.movementID = movementID;
 	}
 	
 	public void addGesture(Gesture gesture)
@@ -28,10 +27,6 @@ public class Movement implements Serializable {
 	public String getPath()
 	{
 		return path;
-	}
-	
-	public void setNormalizationCoefficient(double normalizationCoefficient) {
-		this.normalizationCoefficient = normalizationCoefficient;
 	}
 	
 	public Vector<Gesture> getGestures()

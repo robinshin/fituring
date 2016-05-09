@@ -261,7 +261,8 @@ public class Classification implements ClassificationInterface, KinectListenerIn
 		if(distanceMin <= confidenceValue && confidenceValueExceeded == false) {
 			confidenceValueExceeded = true;
 			System.out.println(tmpResult.getPath() + " - " + distanceMin);
-			engine.MovementDone(tmpResult.getMovementID());
+			System.out.println("ID : " + tmpResult.getMovementID());
+			//engine.MovementDone(tmpResult.getMovementID());
 		}
 
 		if (confidenceValueExceeded == true && distanceMin > (confidenceValue + threshold))
