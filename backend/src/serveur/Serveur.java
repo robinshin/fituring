@@ -47,18 +47,18 @@ public class Serveur implements ServeurInterface, Runnable {
 	
 	@Override
 	public int getVolume() {
-		return (int) (info/10);
+		return (int) (info/100);
 	}
 
 	@Override
 	public void initServeurModule(UpdateParamInterface engine) {
-		// TODO Auto-generated method stub
-		
+		engine.setStyle(getStyle());
+		engine.setVolume(getVolume());
 	}
 
 	@Override
 	public int getStyle() {
-		return info%10;
+		return (info%100)/10;
 	}
 
 	@Override
