@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
 
-tools:context="camillepact.applicationtest.NewSongActivity">
+tools:context="camillepact.applicationtest.NewSongActivity"
+    android:clickable="true">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -135,9 +136,15 @@ tools:context="camillepact.applicationtest.NewSongActivity">
         android:layout_height="wrap_content"
         android:text="Let's dance !"
         android:id="@+id/button"
-        android:layout_below="@+id/textView10"
-        android:layout_marginLeft="130dip" />
+        android:layout_below="@+id/textView9"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:elegantTextHeight="false"
+        android:enabled="true"
+        android:longClickable="true" /><![CDATA[
 
     />
 
+]]>
 </RelativeLayout>

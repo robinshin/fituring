@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Button.*;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -45,21 +46,29 @@ public class NewSongActivity extends AppCompatActivity {
 
     private static int volume = 50;
     private static int style = 2;
-    private int musicOnOff = 0;
+    private static int musicOnOff = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_song);
 
-        new Thread(client).start();
-
-        Button button = (Button) findViewById(R.id.button);
+        final Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-
+                if(musicOnOff == 0) {
+                    musicOnOff = 1;
+                    button.setText("STOP");
+                }
+                else{
+                    musicOnOff = 0;
+                    button.setText("LET'S DANCE");
+                }
             }
         });
+
+        new Thread(client).start();
 
         SeekBar seekbar = (SeekBar) findViewById(R.id.progressBar);
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -102,18 +111,10 @@ public class NewSongActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
-
         });
-
-        /*spinner.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });*/
     }
 
     public static String getInfo(){
-        return Integer.toString(volume*10 + style);
+        return Integer.toString(volume*100 + style*10 + musicOnOff);
     }
 }
