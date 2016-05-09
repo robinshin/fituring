@@ -181,8 +181,8 @@ public class WatchVideosActivity extends AppCompatActivity {
                 videoView.setVideoURI(Uri.parse(uriPath));
                 videoView.start();
             }
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            /*TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));*/
             return rootView;
         }
     }
