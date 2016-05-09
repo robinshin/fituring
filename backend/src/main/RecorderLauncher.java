@@ -42,15 +42,22 @@ public class RecorderLauncher {
 					System.out.println("Champ vide ! Entrer le nom du mouvement : ");
 					gestureName = sc.nextLine();
 				}
-				System.out.println("0=left ; 1=right ; 2=both");
+				System.out.println("0=left hand ; 1=right hand ; 2=both hands ; 3=left hand+elbow ; 4=right hand+elbow ; 5=both hands+elbows");
 				strIn=sc.nextLine();
-				int whichJoint;
+				int whichJoint = -1;
 				if (strIn.length() >= 1 && strIn.charAt(0) == '0')
 					whichJoint = Classification.RECORD_LEFT_HAND;
 				if (strIn.length() >= 1 && strIn.charAt(0) == '1')
 					whichJoint = Classification.RECORD_RIGHT_HAND;
-				else
+				if (strIn.length() >= 1 && strIn.charAt(0) == '2')
 					whichJoint = Classification.RECORD_BOTH_HANDS;
+				if (strIn.length() >= 1 && strIn.charAt(0) == '3')
+					whichJoint = Classification.RECORD_LEFT_HAND_ELBOW;
+				if (strIn.length() >= 1 && strIn.charAt(0) == '4')
+					whichJoint = Classification.RECORD_RIGHT_HAND_ELBOW;
+				if (strIn.length() >= 1 && strIn.charAt(0) == '5')
+					whichJoint = Classification.RECORD_BOTH_HANDS_ELBOWS;
+				
 				cl.saveMovement(gestureName, whichJoint);
 				System.out.println("Gesture saved !");
 				break;

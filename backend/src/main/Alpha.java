@@ -32,6 +32,7 @@ public class Alpha {
 		//dr.initRythmeModule(kinect, audio);
 		
 		cl.addGesture("dab.mvt");
+		cl.addGesture("dabCoude.mvt");
 		cl.addGesture("Envol.mvt");
 		cl.addGesture("I.mvt");
 		cl.addGesture("O.mvt");
