@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
@@ -77,26 +78,39 @@ public class NewSongActivity extends AppCompatActivity {
             }
         });
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        //Création d'une liste d'élément à mettre dans le Spinner(pour l'exemple)
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
         List list = new ArrayList();
         list.add("Electro");
         list.add("Disco");
         list.add("Oriental");
         list.add("Hip-Hop");
-        ArrayAdapter adapter = new ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                list
-        );
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        String text = spinner.getSelectedItem().toString();
-        //Log.d("Spinner", text);
-        if(text.equals("Electro")) style = ELECTRO;
-        else if(text.equals("Disco")) style = DISCO;
-        else if(text.equals("Oriental")) style = ORIENTAL;
-        else if(text.equals("Hip-Hop")) style = HIPHOP;
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String text = spinner.getSelectedItem().toString();
+                //Log.d("Spinner", text);
+                if(text.equals("Electro")) style = ELECTRO;
+                else if(text.equals("Disco")) style = DISCO;
+                else if(text.equals("Oriental")) style = ORIENTAL;
+                else if(text.equals("Hip-Hop")) style = HIPHOP;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        /*spinner.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });*/
     }
 
     public static String getInfo(){

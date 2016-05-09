@@ -14,8 +14,8 @@ public class Client implements Runnable{
     @Override
     public void run() {
         String[]args = new String[2];
-        args[0] = "137.194.35.197";
-        args[1] = "5873";
+        args[0] = "192.168.1.7";
+        args[1] = "5874";
 
         String info = NewSongActivity.getInfo();
         String info2;
