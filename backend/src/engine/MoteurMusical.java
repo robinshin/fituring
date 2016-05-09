@@ -112,13 +112,14 @@ public class MoteurMusical implements 	BPMupdateInterface,
 			sounds.add(new Sound("rnb" + i + ".mp3", new int[] {40, 0, 0, 0, 0, 80, 0, 0} ));
 		
 */
-		addMovement("batterie.mvt", new int[] {40, 0, 0, 0, 30, 0, 0, 60});
+		//addMovement("batterie.mvt", new int[] {40, 0, 0, 0, 30, 0, 0, 60});
 		addMovement("dabCoude.mvt", new int[] {50, 10, 0, 0, 30, 80, 0, 0});
 		addMovement("discoBras.mvt", new int[] {100, 0, 0, 100, 0, 0, 0, 0});
 		addMovement("discoMain.mvt", new int[] {20, 0, 0, 100, 0, 0, 0, 0});
 		addMovement("Envol.mvt", new int[] {60, 0, 0, 0, 0, 0, 30, 0});
 		addMovement("saxophone.mvt", new int[] {40, 50, 0, 0, 0, 0, 0, 0});
-		addMovement("ventre.mvt", new int[] {20, 0, 100, 0, 0, 0, 0, 0});
+		//addMovement("ventre.mvt", new int[] {20, 0, 100, 0, 0, 0, 0, 0});
+		//addMovement("jamal.mvt", new int[] {20, 0, 100, 80, 0, 80, 0, 0} );
 	}
 	
 	private void addMovement(String path, int[] BrutAttributes) {
